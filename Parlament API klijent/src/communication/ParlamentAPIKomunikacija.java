@@ -38,7 +38,7 @@ public class ParlamentAPIKomunikacija {
 				
 				Poslanik p = new Poslanik();
 				
-				p.setId(poslanik.get("ID").getAsInt());
+				p.setId(poslanik.get("id").getAsInt());
 				p.setFirstName(poslanik.get("name").getAsString());
 				p.setLastName(poslanik.get("lastName").getAsString());
 				if(poslanik.get("birthDate") != null)

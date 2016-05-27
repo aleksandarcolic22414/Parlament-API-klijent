@@ -66,4 +66,10 @@ public class Poslanik {
 		return true;
 	}
 	
+	@Override
+	public String toString() {
+		return id + ": name: " + firstName + ", last name: " + lastName + ", birth date: " +
+				birthDate;
+	}
+	
 }

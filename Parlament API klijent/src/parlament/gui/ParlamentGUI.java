@@ -36,6 +36,7 @@ public class ParlamentGUI extends JFrame {
 	 * Create the frame.
 	 */
 	public ParlamentGUI() {
+		setTitle("Parlament members");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 651, 368);
 		contentPane = new JPanel();

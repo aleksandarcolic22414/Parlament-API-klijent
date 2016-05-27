@@ -1,20 +1,25 @@
 package parlament.gui.models;
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.LinkedList;
 import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
 
 import domain.Poslanik;
+import parlament.Parlament;
+import parlament.gui.KontrolerGUI;
 
 @SuppressWarnings("serial")
 public class ParlamentTableModel extends AbstractTableModel{
 
 	private static final String[] kolone = new String[]{"ID", "Name", "Last name", "Birth date"};
-	private List<Poslanik> listaPoslanika = new LinkedList<>();
+	private List<Poslanik> listaPoslanika;
 	
 	public ParlamentTableModel() {
+		listaPoslanika  = new LinkedList<>();
 	}
 	
 	@Override
@@ -43,6 +48,75 @@ public class ParlamentTableModel extends AbstractTableModel{
 			else return "NN";
 		default: return "NN";
 		}
+	}
+	
+	@Override
+	public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
+		Poslanik p = listaPoslanika.get(rowIndex);
+		switch(columnIndex){
+		case 1: if(aValue instanceof String){
+					if(aValue.equals("")){
+						KontrolerGUI.obavesti();
+						return;
+					}
+					
+					else {
+						p.setFirstName((String)aValue);
+						break;
+					}
+				}else break;
+			
+		case 2:
+			if(aValue instanceof String){
+				if(aValue.equals("")){
+					KontrolerGUI.obavesti();
+					return;
+				}
+				else {
+					p.setLastName((String)aValue);
+					break;
+				}
+			} else break;
+		case 3:
+			if(aValue instanceof String){
+				if(aValue.equals("")){
+					KontrolerGUI.obavesti();
+					return;
+				}
+				else {
+					String s = ((String)aValue);
+					String[] pom = s.trim().split("\\.");
+					if(pom.length != 3 || pom[0].length() != 2 
+							|| pom[1].length() != 2 
+							|| pom[2].length() != 4){
+						KontrolerGUI.obavesti();
+						return;
+					}
+					else {
+						int dan = Integer.parseInt(pom[0]);
+						int mesec = Integer.parseInt(pom[1]);
+						int godina = Integer.parseInt(pom[2]);
+						
+						if(dan < 1 || dan > 31 || mesec < 1 || mesec > 12 || godina < 1800
+								|| godina > 2000){
+							KontrolerGUI.obavesti();
+							return;
+						}
+						
+						p.setBirthDate(new GregorianCalendar(godina, mesec - 1, dan).getTime());
+						break;
+					}
+					
+				}
+			}
+		default: break;
+		
+		}
+	}
+	
+	@Override
+	public boolean isCellEditable(int rowIndex, int columnIndex) {
+		return columnIndex != 0;
 	}
 	
 	@Override

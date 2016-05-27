@@ -72,5 +72,13 @@ public class KontrolerGUI {
 			glavniProzor.getTxtStatus().setText("Greska prilikom ucitavanja poslanika iz fajla");
 		}
 	}
+
+	public static void Izmeni(LinkedList<Poslanik> listaPoslanikaIzTabele) {
+		parlament.dodajSvePoslanike(listaPoslanikaIzTabele);
+	}
+
+	public static void obavesti() {
+		glavniProzor.getTxtStatus().setText("Pogresno unet podatak u tabelu!");
+	}
 	
 }

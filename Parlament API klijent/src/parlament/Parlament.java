@@ -4,6 +4,7 @@ import java.util.LinkedList;
 
 import domain.Poslanik;
 import sistemskeOperacije.SODodajPoslanika;
+import sistemskeOperacije.SODodajSvePoslanike;
 import sistemskeOperacije.SOObrisiPoslanika;
 import sistemskeOperacije.SOSacuvajUFajl;
 import sistemskeOperacije.SOUcitajPoslanikeIzFajla;
@@ -40,6 +41,11 @@ public class Parlament implements ParlamentInterfejs{
 	@Override
 	public void ucitajPoslanikeIzFajla(String putanja) {
 		SOUcitajPoslanikeIzFajla.izvrsi(listaPoslanika, putanja);
+	}
+
+	@Override
+	public void dodajSvePoslanike(LinkedList<Poslanik> novaListaPoslanika) {
+		SODodajSvePoslanike.izvrsi(listaPoslanika, novaListaPoslanika);
 	}
 	
 	

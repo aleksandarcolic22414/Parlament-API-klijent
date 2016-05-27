@@ -11,5 +11,5 @@ public interface ParlamentInterfejs {
 	public LinkedList<Poslanik> vratiSvePoslanike();
 	public void sacuvajPoslanikeUFajl(String file);
 	public void ucitajPoslanikeIzFajla(String file);
-	
+	public void dodajSvePoslanike(LinkedList<Poslanik> listaPoslanika);
 }

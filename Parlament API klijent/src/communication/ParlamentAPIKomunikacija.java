@@ -1,6 +1,7 @@
 package communication;
 
 import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -22,13 +23,19 @@ public class ParlamentAPIKomunikacija {
 	private static final String urlPoslanika = 
 			"http://147.91.128.71:9090/parlament/api/members"; 
 	private static final SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy."); 
-
 	
-	public static List<Poslanik> vratiPoslanike() {
+	public static List<Poslanik> vratiPoslanikeIzFajla(String file) throws IOException {
 		try {
-			String odgovorSajta = sendGet(urlPoslanika);
+			String sadrzajFajla = "";
+			
+			BufferedReader in = new BufferedReader(
+					new FileReader("data/serviceMembers.json"));
+			
+			sadrzajFajla = in.readLine();
+			in.close();
+			
 			Gson gson = new GsonBuilder().create();
-			JsonArray poslaniciJson = gson.fromJson(odgovorSajta, JsonArray.class);
+			JsonArray poslaniciJson = gson.fromJson(sadrzajFajla, JsonArray.class);
 			
 			LinkedList<Poslanik> listaPoslanika = new LinkedList<>();
 			
@@ -50,7 +57,7 @@ public class ParlamentAPIKomunikacija {
 			return listaPoslanika;
 			
 		} catch (IOException e) {
-			e.printStackTrace();
+			throw new IOException(e);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
@@ -78,7 +85,6 @@ public class ParlamentAPIKomunikacija {
 			else break;
 		}
 		in.close();
-		
 		return response;
 	}
 

@@ -62,7 +62,7 @@ public class ParlamentGUI extends JFrame {
 		}
 		return scrollPane;
 	}
-	private JTable getTblParlamentTable() {
+	public JTable getTblParlamentTable() {
 		if (tblParlamentTable == null) {
 			tblParlamentTable = new JTable();
 			tblParlamentTable.setModel(new ParlamentTableModel());
@@ -95,6 +95,11 @@ public class ParlamentGUI extends JFrame {
 	private JButton getBtnFillTable() {
 		if (btnFillTable == null) {
 			btnFillTable = new JButton("Fill table");
+			btnFillTable.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					KontrolerGUI.napuniTabeluPodacima();
+				}
+			});
 			btnFillTable.setPreferredSize(new Dimension(140, 23));
 		}
 		return btnFillTable;
@@ -125,7 +130,7 @@ public class ParlamentGUI extends JFrame {
 		}
 		return scrollPane_1;
 	}
-	private JTextArea getTxtStatus() {
+	public JTextArea getTxtStatus() {
 		if (txtStatus == null) {
 			txtStatus = new JTextArea();
 		}

@@ -15,6 +15,8 @@ import javax.swing.JTextArea;
 import javax.swing.border.TitledBorder;
 
 import parlament.gui.models.ParlamentTableModel;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class ParlamentGUI extends JFrame {
 
@@ -29,22 +31,6 @@ public class ParlamentGUI extends JFrame {
 	private JPanel pnlSouth;
 	private JScrollPane scrollPane_1;
 	private JTextArea txtStatus;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					ParlamentGUI frame = new ParlamentGUI();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the frame.
@@ -97,6 +83,11 @@ public class ParlamentGUI extends JFrame {
 	private JButton getBtnGetMembers() {
 		if (btnGetMembers == null) {
 			btnGetMembers = new JButton("Get members");
+			btnGetMembers.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					KontrolerGUI.ucitajPoslanikeSaSajta();
+				}
+			});
 			btnGetMembers.setPreferredSize(new Dimension(140, 23));
 		}
 		return btnGetMembers;

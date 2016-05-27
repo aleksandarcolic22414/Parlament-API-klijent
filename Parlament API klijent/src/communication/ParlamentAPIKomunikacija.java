@@ -24,7 +24,7 @@ public class ParlamentAPIKomunikacija {
 	private static final SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy."); 
 
 	
-	public List<Poslanik> vratiPoslanike() {
+	public static List<Poslanik> vratiPoslanike() {
 		try {
 			String odgovorSajta = sendGet(urlPoslanika);
 			Gson gson = new GsonBuilder().create();
@@ -59,7 +59,7 @@ public class ParlamentAPIKomunikacija {
 		return null;
 	};
 	
-	private String sendGet(String url) throws IOException{
+	public static String sendGet(String url) throws IOException{
 		URL urlSajta = new URL(url);
 		HttpURLConnection connection = (HttpURLConnection) urlSajta.openConnection();	
 		
@@ -68,7 +68,6 @@ public class ParlamentAPIKomunikacija {
 		BufferedReader in = new BufferedReader(
 				new InputStreamReader(
 						connection.getInputStream()));
-		
 		String response = "";
 		
 		while(true){

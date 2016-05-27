@@ -6,6 +6,9 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.LinkedList;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import communication.ParlamentAPIKomunikacija;
 import domain.Poslanik;
 import parlament.Parlament;
@@ -14,9 +17,10 @@ import parlament.gui.models.ParlamentTableModel;
 
 public class KontrolerGUI {
 
+	private static final String updateFile = "data/updatedMembers.json";
 	private static final String urlPoslanika = 
 			"http://147.91.128.71:9090/parlament/api/members";
-	private static String file = "data/serviceMembers.json";
+	private static final String file = "data/serviceMembers.json";
 	private static ParlamentGUI glavniProzor;
 	private static ParlamentInterfejs parlament;
 	
@@ -80,5 +84,24 @@ public class KontrolerGUI {
 	public static void obavesti() {
 		glavniProzor.getTxtStatus().setText("Pogresno unet podatak u tabelu!");
 	}
-	
+
+	public static void sacuvajUpdate() {
+		Gson gson = new GsonBuilder().setPrettyPrinting().create();
+			try {
+				FileWriter writer = new FileWriter(updateFile);
+				
+				for (Poslanik p : parlament.vratiSvePoslanike())
+					writer.write(gson.toJson(p));
+				
+				writer.close();
+				glavniProzor.getTxtStatus().setText("Uspesno upisani update-ovani fajlovi.");
+			} catch (IOException e) {
+				glavniProzor.getTxtStatus().setText("Greska prilikom upisa update-a.");
+			}
+			
+		}
+		
+		
 }
+	
+

@@ -86,25 +86,29 @@ public class ParlamentTableModel extends AbstractTableModel{
 				else {
 					String s = ((String)aValue);
 					String[] pom = s.trim().split("\\.");
-					if(pom.length != 3 || pom[0].length() != 2 
-							|| pom[1].length() != 2 
+					if(pom.length != 3 || pom[0].length() > 2 
+							|| pom[1].length() > 2 
 							|| pom[2].length() != 4){
 						KontrolerGUI.obavesti();
 						return;
 					}
 					else {
-						int dan = Integer.parseInt(pom[0]);
-						int mesec = Integer.parseInt(pom[1]);
-						int godina = Integer.parseInt(pom[2]);
-						
-						if(dan < 1 || dan > 31 || mesec < 1 || mesec > 12 || godina < 1800
-								|| godina > 2000){
+						try{
+							int dan = Integer.parseInt(pom[0]);
+							int mesec = Integer.parseInt(pom[1]);
+							int godina = Integer.parseInt(pom[2]);
+							
+							if(dan < 1 || dan > 31 || mesec < 1 || mesec > 12 || godina < 1800
+									|| godina > 2000){
+								KontrolerGUI.obavesti();
+								return;
+							}
+							
+							p.setBirthDate(new GregorianCalendar(godina, mesec - 1, dan).getTime());
+							break;
+						} catch(NumberFormatException e){
 							KontrolerGUI.obavesti();
-							return;
 						}
-						
-						p.setBirthDate(new GregorianCalendar(godina, mesec - 1, dan).getTime());
-						break;
 					}
 					
 				}

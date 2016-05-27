@@ -108,6 +108,11 @@ public class ParlamentGUI extends JFrame {
 	private JButton getBtnUpdateMembers() {
 		if (btnUpdateMembers == null) {
 			btnUpdateMembers = new JButton("Update members");
+			btnUpdateMembers.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					KontrolerGUI.sacuvajUpdate();
+				}
+			});
 			btnUpdateMembers.setPreferredSize(new Dimension(140, 23));
 			btnUpdateMembers.setMinimumSize(new Dimension(91, 23));
 			btnUpdateMembers.setMaximumSize(new Dimension(91, 23));
